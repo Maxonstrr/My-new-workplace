@@ -1,0 +1,55 @@
+from news.models import *
+Задание 1:
+u1 = User.objects.create_user(username='Pavel')
+u2 = User.objects.create_user(username='Andrew')
+Задание2:
+Author.objects.create(authorUser=u1)
+Author.objects.create(authorUser=u2)
+Задание3:
+Category.objects.create(name='MUSIC')
+CategoCategory.objects.create(name='CELEBRITY')
+Category.objects.create(name='NEW SONGS')
+Category.objects.create(name='HITS')
+Задание4:
+author_p = Author.objects.get(id=1)
+author_a = Author.objects.get(id=2)
+Post.objects.create (author=author_p, categoryType='NW', title='Новый исполнитель удивил всех!', text='Новый певец выпустил свой сингл, который покорил многих. Тем самым сингл стал
+ самым прослушиваемым на всех музыкальных площадках!')
+Post.objects.create (author=author_p, categoryType='AR', title='Какое музыкальное направление самое популярное?', text='На данный момент самым популярным является рок!')
+Post.objects.create (author=author_a, categoryType='AR', title='Что же сейчас слушает молодёжь?', text='Сейчас многие молодые люди слушают все самые последние хиты!')
+Задание 5:
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1), Category.objects.get(id=3))
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=1), Category.objects.get(id=4))
+Post.objects.get(id=3).postCategory.add(Category.objects.get(id=3), Category.objects.get(id=4))  
+Задание 6:
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=2).authorUser, text='Очень классно!')
+ Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=2).authorUser, text='Интересно!')
+Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=1).authorUser, text='Спасибо всем!')
+ Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=1).authorUser, text='Мало инфы,выпускай больше!')
+Задание7:
+Post.objects.get(id=1).like()
+Post.objects.get(id=1).dislike 
+Post.objects.get(id=2).like()
+Post.objects.get(id=3).like()
+ Post.objects.get(id=3).dislike()
+Задание 8:
+a= Author.objects.get(id=1)
+a.update_rating()
+b = Author.objects.get(id=2)
+b.update_rating()
+b.ratingAuthor
+Задание 9:
+author_best = Author.objects.order_by('-ratingAuthor').first()
+author_best.authorUser
+author_best.ratingAuthor
+Задание 10:
+post_best=Post.objects.order_by('-rating').first()
+post_best.dateCreation
+post_best.author.authorUser
+post_best.rating
+post_best.title
+post_best.preview()
+Задание 11:
+post_best=Post.objects.order_by('-rating').first()
+Comment.objects.filter(commentPost=post_best).values('dateCreation', 'commentUser__username','rating', 'text')
+
